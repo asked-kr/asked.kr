@@ -4,108 +4,183 @@
   <meta charset="UTF-8">
   <title>에스크 로그인</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-
     * {
       box-sizing: border-box;
+      font-family: 'Helvetica Neue', sans-serif;
       margin: 0;
       padding: 0;
-      font-family: 'Noto Sans KR', sans-serif;
     }
 
     body {
-      background-color: #ffffff;
+      background-color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
     }
 
-    .login-container {
+    .login-wrapper {
       width: 360px;
-      padding: 40px 30px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 20px;
     }
 
-    .login-logo {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .login-logo img {
-      height: 40px;
-    }
-
-    .login-title {
-      text-align: center;
-      font-size: 20px;
+    .logo {
+      display: flex;
+      align-items: center;
       font-weight: bold;
+      font-size: 20px;
       margin-bottom: 30px;
-      color: #333;
     }
 
-    .form-group {
+    .logo::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Askfm_logo.svg/1024px-Askfm_logo.svg.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin-right: 8px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 15px;
+    }
+
+    .find-links {
+      display: flex;
+      justify-content: flex-end;
+      gap: 14px;
+      margin-top: -12px;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+
+    .find-links a {
+      color: #888;
+      text-decoration: none;
+    }
+
+    .find-links a:hover {
+      text-decoration: underline;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: #8bd3ff;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
       margin-bottom: 20px;
     }
 
-    .form-group label {
-      display: block;
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 6px;
+    .divider {
+      text-align: center;
+      color: #bbb;
+      margin: 20px 0;
+      position: relative;
     }
 
-    .form-group input {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 14px;
+    .divider::before,
+    .divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 40%;
+      height: 1px;
+      background-color: #eee;
     }
 
-    .login-button {
+    .divider::before {
+      left: 0;
+    }
+
+    .divider::after {
+      right: 0;
+    }
+
+    .apple-login {
       width: 100%;
-      padding: 12px;
-      background-color: #18b2a5;
-      color: #fff;
-      font-size: 16px;
+      padding: 14px;
+      background-color: black;
+      color: white;
+      font-size: 15px;
       font-weight: bold;
       border: none;
-      border-radius: 6px;
-      cursor: default;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
     }
 
-    .login-button:hover {
-      background-color: #139d91;
+    .apple-login i {
+      font-style: normal;
+      font-size: 18px;
     }
 
-    .footer {
+    .signup {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 24px;
       font-size: 13px;
       color: #aaa;
+    }
+
+    .signup a {
+      color: #1da1f2;
+      text-decoration: none;
+    }
+
+    .signup a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <div class="login-logo">
-      <img src="https://ask.fm/images/logos/askfm-logo.svg" alt="ASK.fm">
-    </div>
-    <div class="login-title">로그인</div>
-    <div class="form-group">
-      <label for="username">아이디 또는 이메일</label>
-      <input type="text" id="username" placeholder="아이디 또는 이메일을 입력하세요">
-    </div>
-    <div class="form-group">
+  <div class="login-wrapper">
+    <div class="logo">로그인</div>
+
+    <form onsubmit="redirect(event)">
+      <label for="username">아이디</label>
+      <input type="text" id="username" placeholder="아이디 입력">
+
       <label for="password">비밀번호</label>
-      <input type="password" id="password" placeholder="비밀번호를 입력하세요">
-    </div>
-    <button class="login-button" disabled>로그인</button>
-    <div class="footer">
-      © 2025 ASK.fm
+      <input type="password" id="password" placeholder="비밀번호 입력">
+
+      <div class="find-links">
+        <a href="#">아이디 찾기</a>
+        <a href="#">비밀번호 찾기</a>
+      </div>
+
+      <button type="submit" class="login-btn">로그인</button>
+    </form>
+
+    <div class="divider">또는</div>
+
+    <button class="apple-login">
+      <i></i> Apple로 시작하기
+    </button>
+
+    <div class="signup">
+      아직 에스크 계정이 없으신가요? <a href="#">회원가입</a>
     </div>
   </div>
 <script>
